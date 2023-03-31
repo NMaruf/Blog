@@ -1,0 +1,102 @@
+.article {
+  padding: 15px 20px;
+  width: 900px;
+  margin-top: 26px;
+  background-color: #FFFFFF;
+  margin: 26px auto 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+.article-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.title {
+  font-size: 20px;
+  line-height: 28px;
+  color: #1890FF;
+  margin: 0;
+}
+
+.like {
+  display: flex;
+  flex-direction: row;
+  padding-top: 6px;
+  margin-left: 13px;
+}
+
+.like-number {
+  font-size: 12px;
+  line-height: 17px;
+  color: rgba(0, 0, 0, 0.75);
+  margin: 0 5px;
+}
+
+.buttons {
+  margin-top: 4px;
+}
+
+.btn {
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  border-radius: 2px;
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba(0, 0, 0, 0.75);
+  padding: 2px 3px !important;
+  height: 20px;
+  min-width: 38px;
+}
+
+.text {
+  margin-top: 4px;
+  width: 682px;
+  hyphens: auto;
+  text-align: left;
+  font-size: 12px;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.user {
+  position: absolute;
+  right: 17px;
+  display: flex;
+  flex-direction: row;
+}
+
+.username, .date {
+  margin: 0;
+}
+
+.username {
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.date {
+  font-size: 12px;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.photo {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  margin-left: 12px;
+}
+
+.spinner {
+  display: block;
+  margin: 20px auto 20px;
+}
+
+.alert {
+  margin: 20px auto 20px;
+  max-width: 940px;
+}
