@@ -1,21 +1,53 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import Header from '../header'
-import ArticleList from '../article-list'
-import ArticleDetails from '../article-details'
 import NotFound from '../not-found'
+import HomePage from '../../pages/home-page'
+import ArticleDetailsPage from '../../pages/article-details-page'
+import SignInPage from '../../pages/sign-in-page'
+import SignUpPage from '../../pages/sign-up-page'
+import ProfilePage from '../../pages/profile-page'
+import { setUser } from '../../store/slices/userSlice'
+import BlogService from '../../services/service'
 
 import classes from './app.module.scss'
 
+const service = new BlogService()
+
 function App() {
+  const dispatch = useDispatch()
+
+  const token = localStorage.getItem('tokenKey')
+
+  useEffect(() => {
+    service
+      .getCurrentUser()
+      .then(({ user }) => {
+        console.log('Result server GetCurrentUser: ', user)
+        dispatch(
+          setUser({
+            username: user.username,
+            email: user.email,
+            token: user.token,
+            image: user.image,
+          })
+        )
+      })
+      .catch(() => console.log('Get current user ERROR!'))
+  }, [token])
+
   return (
     <div className={classes.container}>
       <Routes>
         <Route path="/" element={<Header />}>
-          <Route index element={<ArticleList />} />
-          <Route path="articles" element={<ArticleList />} />
-          <Route path="articles/:slug" element={<ArticleDetails />} />
+          <Route index element={<HomePage />} />
+          <Route path="articles" element={<HomePage />} />
+          <Route path="articles/:slug" element={<ArticleDetailsPage />} />
+          <Route path="sign-in" element={<SignInPage />} />
+          <Route path="sign-up" element={<SignUpPage />} />
+          <Route path="profile" element={<ProfilePage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

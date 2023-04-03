@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Pagination, Spin, Alert } from 'antd'
 
 import Article from '../article'
-import { fetchArticles } from '../../store/articleSlice'
+import { fetchArticles } from '../../store/slices/articleSlice'
 
 import classes from './article-list.module.scss'
 
