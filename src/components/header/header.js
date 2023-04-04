@@ -3,6 +3,7 @@ import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { removeUser } from '../../store/slices/userSlice'
+import { removeEdit } from '../../store/slices/editArticleSlice'
 
 import classes from './header.module.scss'
 
@@ -36,9 +37,11 @@ function Header() {
     </div>
   ) : (
     <div className={classes.buttons}>
-      <button type="button" className={classes['create-article']}>
-        Create article
-      </button>
+      <Link to="new-article">
+        <button type="button" className={classes['create-article']} onClick={() => dispatch(removeEdit())}>
+          Create article
+        </button>
+      </Link>
       <Link to="profile" className={classes.username}>
         {username}
       </Link>

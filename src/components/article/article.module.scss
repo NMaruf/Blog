@@ -19,6 +19,10 @@
   flex-wrap: nowrap;
 }
 
+.article-header, .tags, .text {
+  width: 682px;
+}
+
 .title {
   font-size: 20px;
   line-height: 28px;
@@ -40,8 +44,10 @@
   margin: 0 5px;
 }
 
-.buttons {
+.tags {
   margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .btn {
@@ -57,7 +63,6 @@
 
 .text {
   margin-top: 4px;
-  width: 682px;
   hyphens: auto;
   text-align: left;
   font-size: 12px;

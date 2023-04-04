@@ -32,7 +32,7 @@ function Article({ title, description, createdAt, tagList, author, favoritesCoun
           <p className={classes['like-number']}>{favoritesCount}</p>
         </div>
       </div>
-      <Space className={classes.buttons} wrap>
+      <Space className={classes.tags} wrap>
         {tagBtn}
       </Space>
       <Paragraph

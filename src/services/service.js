@@ -98,4 +98,50 @@ export default class BlogService {
     }
     return await res.json()
   }
+
+  async createArticle(obj) {
+    const token = localStorage.getItem('tokenKey')
+    const objAricle = { article: obj }
+
+    const res = await fetch(`${this._apiBase}/articles`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Token ${token}` },
+      body: JSON.stringify(objAricle),
+    })
+
+    if (!res.ok) {
+      throw new Error(`Could not fetch ${this._apiBase}/users/login, receiced ${res.status}`)
+    }
+    return await res.json()
+  }
+
+  async editArticle(obj, slug) {
+    const token = localStorage.getItem('tokenKey')
+    const objAricle = { article: obj }
+
+    const res = await fetch(`${this._apiBase}/articles/${slug}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', Authorization: `Token ${token}` },
+      body: JSON.stringify(objAricle),
+    })
+
+    if (!res.ok) {
+      throw new Error(`Could not fetch ${this._apiBase}/articles/${slug}, receiced ${res.status}`)
+    }
+    return await res.json()
+  }
+
+  async deleteArticle(slug) {
+    const token = localStorage.getItem('tokenKey')
+
+    const res = await fetch(`${this._apiBase}/articles/${slug}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', Authorization: `Token ${token}` },
+    })
+
+    if (!res.ok) {
+      throw new Error(`Could not fetch ${this._apiBase}/articles/${slug}, receiced ${res.status}`)
+    }
+    return res
+  }
 }

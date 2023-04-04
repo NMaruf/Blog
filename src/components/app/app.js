@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import Header from '../header'
@@ -11,6 +11,8 @@ import SignUpPage from '../../pages/sign-up-page'
 import ProfilePage from '../../pages/profile-page'
 import { setUser } from '../../store/slices/userSlice'
 import BlogService from '../../services/service'
+import CreateArticlePage from '../../pages/create-article-page'
+import RequireAuth from '../../hoc/require-auth'
 
 import classes from './app.module.scss'
 
@@ -43,11 +45,27 @@ function App() {
       <Routes>
         <Route path="/" element={<Header />}>
           <Route index element={<HomePage />} />
-          <Route path="articles" element={<HomePage />} />
+          <Route path="articles" element={<Navigate to="/" replace />} />
           <Route path="articles/:slug" element={<ArticleDetailsPage />} />
           <Route path="sign-in" element={<SignInPage />} />
           <Route path="sign-up" element={<SignUpPage />} />
           <Route path="profile" element={<ProfilePage />} />
+          <Route
+            path="new-article"
+            element={
+              <RequireAuth>
+                <CreateArticlePage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="articles/:slug/edit"
+            element={
+              <RequireAuth>
+                <CreateArticlePage />
+              </RequireAuth>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
