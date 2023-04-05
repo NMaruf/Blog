@@ -5,17 +5,17 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { setUser } from '../store/slices/userSlice'
 import BlogService from '../services/service'
+import ServiceLocalStorage from '../services/localStorage-service'
 
 import classes from './index.module.scss'
 
+const localStorageService = new ServiceLocalStorage()
 const service = new BlogService()
 
 function SignUpPage() {
   const [registerError, setRegisterError] = useState(null)
   const dispatch = useDispatch()
-
   const navigate = useNavigate()
-
   const {
     register,
     getValues,
@@ -24,12 +24,10 @@ function SignUpPage() {
   } = useForm({ mode: 'onBlur' })
 
   const onSubmit = (data) => {
-    console.log('DATA: ', data)
     const { email, username, password } = data
     service
       .registerUser(email, username, password)
       .then(({ user }) => {
-        console.log('Result server REGISTER: ', user)
         dispatch(
           setUser({
             username: user.username,
@@ -38,7 +36,7 @@ function SignUpPage() {
             image: user.image,
           })
         )
-        localStorage.setItem('tokenKey', user.token)
+        localStorageService.setToken('tokenKey', user.token)
         navigate('/')
       })
       .catch(() => setRegisterError('Register error !'))

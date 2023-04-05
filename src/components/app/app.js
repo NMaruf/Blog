@@ -13,21 +13,21 @@ import { setUser } from '../../store/slices/userSlice'
 import BlogService from '../../services/service'
 import CreateArticlePage from '../../pages/create-article-page'
 import RequireAuth from '../../hoc/require-auth'
+import ServiceLocalStorage from '../../services/localStorage-service'
 
 import classes from './app.module.scss'
 
 const service = new BlogService()
+const localStorageService = new ServiceLocalStorage()
 
 function App() {
   const dispatch = useDispatch()
-
-  const token = localStorage.getItem('tokenKey')
+  const token = localStorageService.getToken('tokenKey')
 
   useEffect(() => {
     service
       .getCurrentUser()
       .then(({ user }) => {
-        console.log('Result server GetCurrentUser: ', user)
         dispatch(
           setUser({
             username: user.username,

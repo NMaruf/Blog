@@ -10,20 +10,20 @@ import classes from './article-list.module.scss'
 function ArticleList() {
   const [page, setPage] = useState(1)
   const articles = useSelector((state) => state.articles.articles)
-  const { status, error } = useSelector((state) => state.articles)
+  const { status, error, like } = useSelector((state) => state.articles)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(fetchArticles(page))
-  }, [page])
-  /* eslint-disable */
+  }, [page, like])
+
   const message =
+    // eslint-disable-next-line no-nested-ternary
     status === 'loading' ? (
       <Spin className={classes.spinner} />
     ) : status === 'rejected' ? (
       <Alert className={classes.alert} message="Error" description={error} type="error" showIcon />
     ) : null
-  /* eslint-ensable */
 
   const results = articles.map((article) => {
     const { createdAt, updatedAt, ...itemProps } = article
@@ -38,7 +38,7 @@ function ArticleList() {
         <Pagination
           className={classes.pagination}
           current={page}
-          onChange={(page) => setPage(page)}
+          onChange={(state) => setPage(state)}
           showSizeChanger={false}
           total={500}
         />

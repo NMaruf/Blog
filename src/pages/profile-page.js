@@ -14,9 +14,7 @@ function ProfilePage() {
   const { username: defaultUsername, email: defaultEmail, image: defaultImage } = useSelector((state) => state.user)
   const [profileError, setProfileError] = useState(null)
   const dispatch = useDispatch()
-
   const navigate = useNavigate()
-
   const {
     register,
     formState: { errors },
@@ -24,12 +22,10 @@ function ProfilePage() {
   } = useForm({ mode: 'onBlur' })
 
   const onSubmit = (data) => {
-    console.log('DATA: ', data)
     const { email, username, password, image } = data
     service
       .updateCurrentUser(email, password, username, image)
       .then(({ user }) => {
-        console.log('Result server EDIT PROFILE: ', user)
         dispatch(
           setUser({
             username: user.username,

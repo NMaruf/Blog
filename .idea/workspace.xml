@@ -5,21 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df37aa3d-f98d-43ee-8382-837cb7004524" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/hoc/require-auth.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/create-article-page.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/slices/articleDetailsSlice.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/slices/editArticleSlice.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/localStorage-service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/app/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/article-details/article-details.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/article-details/article-details.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/article-details/article-details.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/article-details/article-details.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/article-list/article-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/article-list/article-list.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/article/article.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/article/article.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/article/article.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/article/article.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/header/header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hoc/require-auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hoc/require-auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile-page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/sign-in-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/sign-in-page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/sign-up-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/sign-up-page.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/slices/articleDetailsSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/slices/articleDetailsSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/slices/articleSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/slices/articleSlice.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +39,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
   </component>
   <component name="ProjectId" id="2Nat2O5ORAQnBSZn8h2fH8qWddr" />
   <component name="ProjectViewState">
@@ -82,7 +88,8 @@
       <workItem from="1680438797133" duration="8710000" />
       <workItem from="1680511413854" duration="35528000" />
       <workItem from="1680617273728" duration="2827000" />
-      <workItem from="1680620166207" duration="4861000" />
+      <workItem from="1680620166207" duration="13339000" />
+      <workItem from="1680690931422" duration="4686000" />
     </task>
     <servers />
   </component>

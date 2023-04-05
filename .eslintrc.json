@@ -51,6 +51,7 @@
         "no-case-declarations": "off",
         "no-param-reassign": "off",
         "react/jsx-wrap-multilines": "off",
+        "operator-linebreak": "off",
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }], // разрешить js, jsx
         "import/order": [
             2,

@@ -1,9 +1,13 @@
 import { useLocation, Navigate } from 'react-router-dom'
 
+import ServiceLocalStorage from '../services/localStorage-service'
+
+const localStorageService = new ServiceLocalStorage()
+
 function RequireAuth({ children }) {
   const location = useLocation()
   let auth = false
-  if (localStorage.getItem('tokenKey')) {
+  if (localStorageService.getToken('tokenKey')) {
     auth = true
   }
 

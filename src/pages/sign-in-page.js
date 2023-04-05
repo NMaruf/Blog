@@ -5,17 +5,17 @@ import { useDispatch } from 'react-redux'
 
 import { setUser } from '../store/slices/userSlice'
 import BlogService from '../services/service'
+import ServiceLocalStorage from '../services/localStorage-service'
 
 import classes from './index.module.scss'
 
 const service = new BlogService()
+const localStorageService = new ServiceLocalStorage()
 
 function SignInPage() {
   const [userError, setUserError] = useState(null)
   const dispatch = useDispatch()
-
   const navigate = useNavigate()
-
   const {
     register,
     formState: { errors },
@@ -27,7 +27,6 @@ function SignInPage() {
     service
       .loginUser(email, password)
       .then(({ user }) => {
-        console.log('Result server LOGIN: ', user)
         dispatch(
           setUser({
             username: user.username,
@@ -36,7 +35,7 @@ function SignInPage() {
             image: user.image,
           })
         )
-        localStorage.setItem('tokenKey', user.token)
+        localStorageService.setToken('tokenKey', user.token)
         navigate('/')
       })
       .catch(() => setUserError('Invalid user !'))

@@ -21,7 +21,6 @@ const articleDetailsSlice = createSlice({
   initialState: { articleDetails: {}, status: null, error: null },
   extraReducers: {
     [fetchArticleDetails.pending]: (state) => {
-      /* eslint-disable */
       state.status = 'loading'
       state.error = null
     },
@@ -32,7 +31,6 @@ const articleDetailsSlice = createSlice({
     [fetchArticleDetails.rejected]: (state, action) => {
       state.status = 'rejected'
       state.error = action.payload
-      /* eslint-enable */
     },
   },
 })

@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { removeUser } from '../../store/slices/userSlice'
 import { removeEdit } from '../../store/slices/editArticleSlice'
+import ServiceLocalStorage from '../../services/localStorage-service'
 
 import classes from './header.module.scss'
+
+const localStorageService = new ServiceLocalStorage()
 
 function Header() {
   const dispatch = useDispatch()
@@ -26,7 +29,7 @@ function Header() {
     </Link>
   )
 
-  const buttonsUser = !localStorage.getItem('tokenKey') ? (
+  const buttonsUser = !localStorageService.getToken('tokenKey') ? (
     <div className={classes.buttons}>
       <Link to="sign-in" className={classes['sign-in']}>
         Sign In
@@ -50,7 +53,7 @@ function Header() {
         type="button"
         className={classes.logout}
         onClick={() => {
-          localStorage.removeItem('tokenKey')
+          localStorageService.removeToken('tokenKey')
           dispatch(removeUser())
           navigate('/')
         }}

@@ -15,14 +15,14 @@ export const fetchArticles = createAsyncThunk('blog/fetchArticles', async (page,
 
 const articleSlice = createSlice({
   name: 'blog',
-  initialState: { articles: [], status: null, error: null },
-  // reducers: {
-  // addArticle(state, action) {},
-  // removeArticle(state, action) {},
-  // },
+  initialState: { articles: [], status: null, error: null, like: false },
+  reducers: {
+    likeArticle(state) {
+      state.like = !state.like
+    },
+  },
   extraReducers: {
     [fetchArticles.pending]: (state) => {
-      /* eslint-disable */
       state.status = 'loading'
       state.error = null
     },
@@ -33,10 +33,9 @@ const articleSlice = createSlice({
     [fetchArticles.rejected]: (state, action) => {
       state.status = 'rejected'
       state.error = action.payload
-      /* eslint-enable */
     },
   },
 })
 
-// export const { addArticle, removeArticle } = articleSlice.actions
+export const { likeArticle } = articleSlice.actions
 export default articleSlice.reducer
