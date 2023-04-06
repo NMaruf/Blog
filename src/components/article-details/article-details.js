@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { useNavigate, useParams } from 'react-router-dom'
 import { HeartOutlined } from '@ant-design/icons'
@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setEdit } from '../../store/slices/editArticleSlice'
 import { fetchArticleDetails } from '../../store/slices/articleDetailsSlice'
 import BlogService from '../../services/service'
-import { likeArticle } from '../../store/slices/articleSlice'
 
 import classes from './article-details.module.scss'
 
@@ -22,11 +21,10 @@ function ArticleDetails() {
   const { slug } = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [like, setLike] = useState(false)
 
   useEffect(() => {
     dispatch(fetchArticleDetails(slug))
-  }, [like])
+  }, [])
 
   const { title, description, updatedAt, createdAt, tagList, favorited, favoritesCount, body, author } = article
   const { username, image } = author || {}
@@ -52,19 +50,17 @@ function ArticleDetails() {
   const favorite = () => {
     service
       .favoriteArticle(slug)
-      .then(() => message.success('Article favorited !'))
+      .then(() => dispatch(fetchArticleDetails(slug)))
+      .then(() => message.success('Like !'))
       .catch(() => message.error('Error on favoriting !'))
-    dispatch(likeArticle())
-    setLike((state) => !state)
   }
 
   const unFavorite = () => {
     service
       .unFavoriteArticle(slug)
-      .then(() => message.success('Article unFavorited !'))
-      .catch(() => message.error('Error on unFavoriting !'))
-    dispatch(likeArticle())
-    setLike((state) => !state)
+      .then(() => dispatch(fetchArticleDetails(slug)))
+      .then(() => message.success('Like removed !'))
+      .catch(() => message.error('Error on removing a like !'))
   }
 
   const getUTCDate = (dateString = Date.now()) => {

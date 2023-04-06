@@ -6,7 +6,7 @@ import { format } from 'date-fns'
 import { useDispatch } from 'react-redux'
 
 import BlogService from '../../services/service'
-import { likeArticle } from '../../store/slices/articleSlice'
+import { fetchArticles } from '../../store/slices/articleSlice'
 import ServiceLocalStorage from '../../services/localStorage-service'
 
 import classes from './article.module.scss'
@@ -36,17 +36,17 @@ function Article({ title, description, updatedAt, createdAt, tagList, author, fa
   const favorite = () => {
     service
       .favoriteArticle(slug)
-      .then(() => message.success('Article favorited !'))
+      .then(() => dispatch(fetchArticles()))
+      .then(() => message.success('Like !'))
       .catch(() => message.error('Error on favoriting !'))
-    dispatch(likeArticle())
   }
 
   const unFavorite = () => {
     service
       .unFavoriteArticle(slug)
-      .then(() => message.success('Article unFavorited !'))
-      .catch(() => message.error('Error on unFavoriting !'))
-    dispatch(likeArticle())
+      .then(() => dispatch(fetchArticles()))
+      .then(() => message.success('Like removed !'))
+      .catch(() => message.error('Error on removing a like !'))
   }
 
   let uniqKey = 100

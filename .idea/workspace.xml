@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="df37aa3d-f98d-43ee-8382-837cb7004524" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/article-details/article-details.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/article-details/article-details.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/article-list/article-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/article-list/article-list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/article/article.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/article/article.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/slices/articleSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/slices/articleSlice.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,9 +26,6 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="1" />
   </component>
   <component name="ProjectId" id="2Nat2O5ORAQnBSZn8h2fH8qWddr" />
   <component name="ProjectViewState">
@@ -73,7 +73,8 @@
       <workItem from="1680511413854" duration="35528000" />
       <workItem from="1680617273728" duration="2827000" />
       <workItem from="1680620166207" duration="13339000" />
-      <workItem from="1680690931422" duration="5121000" />
+      <workItem from="1680690931422" duration="5517000" />
+      <workItem from="1680769223932" duration="5344000" />
     </task>
     <servers />
   </component>

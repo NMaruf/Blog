@@ -15,12 +15,7 @@ export const fetchArticles = createAsyncThunk('blog/fetchArticles', async (page,
 
 const articleSlice = createSlice({
   name: 'blog',
-  initialState: { articles: [], status: null, error: null, like: false },
-  reducers: {
-    likeArticle(state) {
-      state.like = !state.like
-    },
-  },
+  initialState: { articles: [], status: null, error: null },
   extraReducers: {
     [fetchArticles.pending]: (state) => {
       state.status = 'loading'
@@ -37,5 +32,4 @@ const articleSlice = createSlice({
   },
 })
 
-export const { likeArticle } = articleSlice.actions
 export default articleSlice.reducer

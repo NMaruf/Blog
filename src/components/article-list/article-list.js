@@ -10,12 +10,12 @@ import classes from './article-list.module.scss'
 function ArticleList() {
   const [page, setPage] = useState(1)
   const articles = useSelector((state) => state.articles.articles)
-  const { status, error, like } = useSelector((state) => state.articles)
+  const { status, error } = useSelector((state) => state.articles)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(fetchArticles(page))
-  }, [page, like])
+  }, [page])
 
   const message =
     // eslint-disable-next-line no-nested-ternary
