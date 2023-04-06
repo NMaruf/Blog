@@ -28,7 +28,7 @@ function ArticleList() {
   const results = articles.map((article) => {
     const { createdAt, updatedAt, ...itemProps } = article
     const uniqId = createdAt + updatedAt
-    return <Article key={uniqId} createdAt={createdAt} updatedAt={updatedAt} {...itemProps} />
+    return <Article key={uniqId} createdAt={createdAt} updatedAt={updatedAt} page={page} {...itemProps} />
   })
 
   const content =

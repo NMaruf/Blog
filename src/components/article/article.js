@@ -16,7 +16,7 @@ const localStorageService = new ServiceLocalStorage()
 
 const { Paragraph } = Typography
 
-function Article({ title, description, updatedAt, createdAt, tagList, author, favoritesCount, slug, favorited }) {
+function Article({ title, description, updatedAt, createdAt, tagList, author, favoritesCount, slug, favorited, page }) {
   const { username, image } = author
   const dispatch = useDispatch()
 
@@ -36,7 +36,7 @@ function Article({ title, description, updatedAt, createdAt, tagList, author, fa
   const favorite = () => {
     service
       .favoriteArticle(slug)
-      .then(() => dispatch(fetchArticles()))
+      .then(() => dispatch(fetchArticles(page)))
       .then(() => message.success('Like !'))
       .catch(() => message.error('Error on favoriting !'))
   }
@@ -44,7 +44,7 @@ function Article({ title, description, updatedAt, createdAt, tagList, author, fa
   const unFavorite = () => {
     service
       .unFavoriteArticle(slug)
-      .then(() => dispatch(fetchArticles()))
+      .then(() => dispatch(fetchArticles(page)))
       .then(() => message.success('Like removed !'))
       .catch(() => message.error('Error on removing a like !'))
   }
