@@ -9,10 +9,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setEdit } from '../../store/slices/editArticleSlice'
 import { fetchArticleDetails } from '../../store/slices/articleDetailsSlice'
 import BlogService from '../../services/service'
+import ServiceLocalStorage from '../../services/localStorage-service'
 
 import classes from './article-details.module.scss'
 
 const service = new BlogService()
+const localStorageService = new ServiceLocalStorage()
 
 function ArticleDetails() {
   const article = useSelector((state) => state.articleDetails.articleDetails)
@@ -119,10 +121,14 @@ function ArticleDetails() {
       <div className={classes['article-header']}>
         <h5 className={classes.title}>{title}</h5>
         <div className={classes.like}>
-          <HeartOutlined
-            className={classes[`${favorited ? 'active' : ''}`]}
-            onClick={() => (favorited === false ? favorite() : unFavorite())}
-          />
+          {localStorageService.getToken('tokenKey') ? (
+            <HeartOutlined
+              className={classes[`${favorited ? 'active' : ''}`]}
+              onClick={() => (favorited === false ? favorite() : unFavorite())}
+            />
+          ) : (
+            <HeartOutlined />
+          )}
           <p className={classes['like-number']}>{favoritesCount}</p>
         </div>
       </div>
