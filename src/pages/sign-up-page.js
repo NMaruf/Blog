@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { setUser } from '../store/slices/userSlice'
 import BlogService from '../services/service'
 import ServiceLocalStorage from '../services/localStorage-service'
+import { signIn } from '../constans'
 
 import classes from './index.module.scss'
 
@@ -112,7 +113,7 @@ function SignUpPage() {
       </form>
       <p className={classes['footer-text']}>
         Already have an account?{' '}
-        <Link to="/sign-in" className={classes['footer-link']}>
+        <Link to={`/${signIn}`} className={classes['footer-link']}>
           Sign In
         </Link>
         .

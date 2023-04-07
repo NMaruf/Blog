@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import { signUp } from '../constans'
 import { setUser } from '../store/slices/userSlice'
 import BlogService from '../services/service'
 import ServiceLocalStorage from '../services/localStorage-service'
@@ -71,7 +72,7 @@ function SignInPage() {
       </form>
       <p className={classes['footer-text']}>
         Don’t have an account?{' '}
-        <Link to="/sign-up" className={classes['footer-link']}>
+        <Link to={`/${signUp}`} className={classes['footer-link']}>
           Sign Up
         </Link>
         .

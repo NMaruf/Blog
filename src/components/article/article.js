@@ -5,6 +5,7 @@ import { HeartOutlined } from '@ant-design/icons'
 import { format } from 'date-fns'
 import { useDispatch } from 'react-redux'
 
+import { articles } from '../../constans'
 import BlogService from '../../services/service'
 import { fetchArticles } from '../../store/slices/articleSlice'
 import ServiceLocalStorage from '../../services/localStorage-service'
@@ -58,7 +59,7 @@ function Article({ title, description, updatedAt, createdAt, tagList, author, fa
   return (
     <li className={classes.article}>
       <div className={classes['article-header']}>
-        <Link to={`/articles/${slug}`} className={classes.title}>
+        <Link to={`/${articles}/${slug}`} className={classes.title}>
           {title}
         </Link>
         <div className={classes.like}>

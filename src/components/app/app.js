@@ -14,7 +14,7 @@ import BlogService from '../../services/service'
 import CreateArticlePage from '../../pages/create-article-page'
 import RequireAuth from '../../hoc/require-auth'
 import ServiceLocalStorage from '../../services/localStorage-service'
-import { articles, articleSlug, signIn, signUp, profile, newArticle, articlesEdit } from '../../constans'
+import { articles, signIn, signUp, profile, newArticle, articlesEdit } from '../../constans'
 
 import classes from './app.module.scss'
 
@@ -47,7 +47,7 @@ function App() {
         <Route path="/" element={<Header />}>
           <Route index element={<HomePage />} />
           <Route path={articles} element={<Navigate to="/" replace />} />
-          <Route path={articleSlug} element={<ArticleDetailsPage />} />
+          <Route path={`${articles}/:slug`} element={<ArticleDetailsPage />} />
           <Route path={signIn} element={<SignInPage />} />
           <Route path={signUp} element={<SignUpPage />} />
           <Route
@@ -67,7 +67,7 @@ function App() {
             }
           />
           <Route
-            path={`articles/:slug/${articlesEdit}`}
+            path={`${articles}/:slug/${articlesEdit}`}
             element={
               <RequireAuth>
                 <CreateArticlePage />

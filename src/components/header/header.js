@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { removeUser } from '../../store/slices/userSlice'
 import { removeEdit } from '../../store/slices/editArticleSlice'
 import ServiceLocalStorage from '../../services/localStorage-service'
+import { signIn, signUp, profile, newArticle } from '../../constans'
 
 import classes from './header.module.scss'
 
@@ -16,7 +17,7 @@ function Header() {
   const { username, image } = useSelector((state) => state.user)
 
   const avatar = image ? (
-    <Link to="profile">
+    <Link to={profile}>
       <img src={image} className={classes.photo} alt="user img" />
     </Link>
   ) : (
@@ -32,21 +33,21 @@ function Header() {
 
   const buttonsUser = !localStorageService.getToken('tokenKey') ? (
     <div className={classes.buttons}>
-      <Link to="sign-in" className={classes['sign-in']}>
+      <Link to={signIn} className={classes['sign-in']}>
         Sign In
       </Link>
-      <Link to="sign-up" type="button" className={classes['sign-up']}>
+      <Link to={signUp} type="button" className={classes['sign-up']}>
         Sign Up
       </Link>
     </div>
   ) : (
     <div className={classes.buttons}>
-      <Link to="new-article">
+      <Link to={newArticle}>
         <button type="button" className={classes['create-article']} onClick={() => dispatch(removeEdit())}>
           Create article
         </button>
       </Link>
-      <Link to="profile" className={classes.username}>
+      <Link to={profile} className={classes.username}>
         {username}
       </Link>
       {avatar}
