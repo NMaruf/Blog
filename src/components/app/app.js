@@ -67,7 +67,7 @@ function App() {
             }
           />
           <Route
-            path={articlesEdit}
+            path={`articles/:slug/${articlesEdit}`}
             element={
               <RequireAuth>
                 <CreateArticlePage />
