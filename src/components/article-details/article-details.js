@@ -6,6 +6,7 @@ import { Alert, Button, Space, Spin, message, Popconfirm } from 'antd'
 import { format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { articlesEdit } from '../../constans'
 import { setEdit } from '../../store/slices/editArticleSlice'
 import { fetchArticleDetails } from '../../store/slices/articleDetailsSlice'
 import BlogService from '../../services/service'
@@ -65,19 +66,6 @@ function ArticleDetails() {
       .catch(() => message.error('Error on removing a like !'))
   }
 
-  const getUTCDate = (dateString = Date.now()) => {
-    const date = new Date(dateString)
-
-    return new Date(
-      date.getUTCFullYear(),
-      date.getUTCMonth(),
-      date.getUTCDate(),
-      date.getUTCHours(),
-      date.getUTCMinutes(),
-      date.getUTCSeconds()
-    )
-  }
-
   let uniqKey = 100
   const tagBtn = tagList?.map((tag) => {
     uniqKey += 1
@@ -107,7 +95,7 @@ function ArticleDetails() {
         className={classes.edit}
         onClick={() => {
           dispatch(setEdit())
-          navigate('edit')
+          navigate(articlesEdit)
         }}
       >
         Edit
@@ -135,15 +123,23 @@ function ArticleDetails() {
       <Space className={classes.tags} wrap>
         {tagBtn}
       </Space>
-      {user.username === username && user.image === image ? editButtons : null}
+      {user.username === username ? editButtons : null}
       <p className={classes.text}>{description}</p>
       <ReactMarkdown className={classes.body}>{body}</ReactMarkdown>
       <div className={classes.user}>
         <div className={classes['user-description']}>
           <h6 className={classes.username}>{username}</h6>
-          <p className={classes.date}>{format(getUTCDate(updatedAt || createdAt), 'MMMM d, yyyy')}</p>
+          <p className={classes.date}>
+            {(updatedAt || createdAt) && format(new Date(updatedAt || createdAt), 'MMMM d, yyyy')}
+          </p>
         </div>
-        <img src={image} className={classes.photo} alt="user img" />
+        <img
+          src={
+            image === 'https://static.productionready.io/images/smiley-cyrus.jpg' ? '..//images/Rectangle 1.svg' : image
+          }
+          className={classes.photo}
+          alt="user img"
+        />
       </div>
     </section>
   )

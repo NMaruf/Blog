@@ -49,15 +49,11 @@ function Article({ title, description, updatedAt, createdAt, tagList, author, fa
       .catch(() => message.error('Error on removing a like !'))
   }
 
-  let uniqKey = 100
-  const tagBtn = tagList.map((tag) => {
-    uniqKey += 1
-    return (
-      <Button className={classes.btn} key={uniqKey}>
-        {tag}
-      </Button>
-    )
-  })
+  const tagBtn = tagList.map((tag) => (
+    <Button className={classes.btn} key={tag}>
+      {tag}
+    </Button>
+  ))
 
   return (
     <li className={classes.article}>
@@ -95,7 +91,13 @@ function Article({ title, description, updatedAt, createdAt, tagList, author, fa
           <h6 className={classes.username}>{username}</h6>
           <p className={classes.date}>{format(getUTCDate(updatedAt || createdAt), 'MMMM d, yyyy')}</p>
         </div>
-        <img src={image} className={classes.photo} alt="user img" />
+        <img
+          src={
+            image === 'https://static.productionready.io/images/smiley-cyrus.jpg' ? '..//images/Rectangle 1.svg' : image
+          }
+          className={classes.photo}
+          alt="user img"
+        />
       </div>
     </li>
   )

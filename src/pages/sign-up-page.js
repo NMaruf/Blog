@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { z } from 'zod'
 import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -12,16 +14,37 @@ import classes from './index.module.scss'
 const localStorageService = new ServiceLocalStorage()
 const service = new BlogService()
 
+const formSchema = z
+  .object({
+    username: z
+      .string()
+      .min(3, { message: 'Your username needs to be at least 3 characters' })
+      .max(20, 'Your username must be limited to a maximum of 20 characters'),
+    email: z.string().email('Invalid email'),
+    password: z
+      .string()
+      .min(6, 'Your password needs to be at least 6 characters')
+      .max(40, 'Your password must be limited to a maximum of 40 characters'),
+    confirmPassword: z
+      .string()
+      .min(6, 'Your password needs to be at least 6 characters')
+      .max(40, 'Your password must be limited to a maximum of 40 characters'),
+    terms: z.literal(true, { errorMap: () => ({ message: 'Your agree is required' }) }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ['confirmPassword'],
+    message: 'Passwords must match',
+  })
+
 function SignUpPage() {
   const [registerError, setRegisterError] = useState(null)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {
     register,
-    getValues,
     formState: { errors },
     handleSubmit,
-  } = useForm({ mode: 'onBlur' })
+  } = useForm({ mode: 'onBlur', resolver: zodResolver(formSchema) })
 
   const onSubmit = (data) => {
     const { email, username, password } = data
@@ -49,94 +72,41 @@ function SignUpPage() {
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="Username">
           Username
-          <input
-            id="Username"
-            {...register('username', {
-              required: 'Username is required',
-              minLength: {
-                value: 3,
-                message: 'Your username needs to be at least 3 characters',
-              },
-              maxLength: {
-                value: 20,
-                message: 'Your username must be limited to a maximum of 20 characters',
-              },
-            })}
-            placeholder="Username"
-          />
+          <input id="Username" {...register('username')} placeholder="Username" />
         </label>
         <div className={classes.notification}>
           {errors?.username && <p className={classes.notification}>{errors?.username?.message || 'Error!'}</p>}
         </div>
         <label htmlFor="Email">
           Email address
-          <input
-            type="email"
-            id="Email"
-            {...register('email', { required: 'Email is required' })}
-            placeholder="Email address"
-          />
+          <input type="email" id="Email" {...register('email')} placeholder="Email address" />
         </label>
         <div className={classes.notification}>
           {errors?.email && <p className={classes.notification}>{errors?.email?.message || 'Error!'}</p>}
         </div>
         <label htmlFor="Password">
           Password
-          <input
-            type="password"
-            id="Password"
-            {...register('password', {
-              required: 'Password is required',
-              minLength: {
-                value: 6,
-                message: 'Your password needs to be at least 6 characters',
-              },
-              maxLength: {
-                value: 40,
-                message: 'Your password must be limited to a maximum of 40 characters',
-              },
-            })}
-            placeholder="Password"
-          />
+          <input type="password" id="Password" {...register('password')} placeholder="Password" />
         </label>
         <div className={classes.notification}>
           {errors?.password && <p className={classes.notification}>{errors?.password?.message || 'Error!'}</p>}
         </div>
         <label htmlFor="Repeat_Password">
           Repeat Password
-          <input
-            type="password"
-            id="Repeat_Password"
-            {...register('repeat_password', {
-              required: 'Password is required',
-              minLength: {
-                value: 6,
-                message: 'Your password needs to be at least 6 characters',
-              },
-              maxLength: {
-                value: 40,
-                message: 'Your password must be limited to a maximum of 40 characters',
-              },
-              validate: (value) => {
-                const { password } = getValues()
-                return password === value || 'Passwords must match'
-              },
-            })}
-            placeholder="Password"
-          />
+          <input type="password" id="Repeat_Password" {...register('confirmPassword')} placeholder="Password" />
         </label>
         <div className={classes.notification}>
-          {errors?.repeat_password && (
-            <p className={classes.notification}>{errors?.repeat_password?.message || 'Error!'}</p>
+          {errors?.confirmPassword && (
+            <p className={classes.notification}>{errors?.confirmPassword?.message || 'Error!'}</p>
           )}
         </div>
         <div className={classes.line} />
         <label htmlFor="Check" className={classes.checkbox}>
-          <input type="checkbox" id="Check" {...register('check', { required: 'Your agree is required' })} />I agree to
-          the processing of my personal information
+          <input type="checkbox" id="Check" {...register('terms')} />I agree to the processing of my personal
+          information
         </label>
         <div className={classes.notification}>
-          {errors?.check && <p className={classes.notification}>{errors?.check?.message || 'Error!'}</p>}
+          {errors?.terms && <p className={classes.notification}>{errors?.terms?.message || 'Error!'}</p>}
         </div>
         <input type="submit" value="Create" />
       </form>

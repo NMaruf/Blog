@@ -29,8 +29,6 @@ function CreateArticlePage() {
   // eslint-disable-next-line prefer-const
   let [tagList, setTagList] = useState(edit ? [...tagListDefault] : [])
 
-  let idKey = 0
-
   const {
     register,
     formState: { errors },
@@ -59,23 +57,20 @@ function CreateArticlePage() {
     }
   }
 
-  const tagButtons = tagList.map((el, id) => {
-    idKey++
-    return (
-      <div key={idKey} className={classes['tag-container']}>
-        <input value={el} className={classes.tag} readOnly />
-        <button
-          type="button"
-          className={classes.delete}
-          onClick={() => {
-            setTagList([...tagList.slice(0, id), ...tagList.slice(id + 1)])
-          }}
-        >
-          Delete
-        </button>
-      </div>
-    )
-  })
+  const tagButtons = tagList.map((el, id) => (
+    <div key={el} className={classes['tag-container']}>
+      <input value={el} className={classes.tag} readOnly />
+      <button
+        type="button"
+        className={classes.delete}
+        onClick={() => {
+          setTagList([...tagList.slice(0, id), ...tagList.slice(id + 1)])
+        }}
+      >
+        Delete
+      </button>
+    </div>
+  ))
 
   return (
     <div className={`${classes['form-container']} ${classes['create-article']}`}>

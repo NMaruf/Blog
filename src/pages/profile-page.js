@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import { setUser } from '../store/slices/userSlice'
 import BlogService from '../services/service'
@@ -9,6 +11,48 @@ import BlogService from '../services/service'
 import classes from './index.module.scss'
 
 const service = new BlogService()
+
+const formSchema = z
+  .object({
+    username: z
+      .string()
+      .min(3, { message: 'Your username needs to be at least 3 characters' })
+      .max(20, 'Your username must be limited to a maximum of 20 characters')
+      .optional()
+      .or(z.literal('')),
+    email: z.string().email('Invalid email').optional().or(z.literal('')),
+    newPassword: z
+      .string()
+      .min(6, 'Your password needs to be at least 6 characters')
+      .max(40, 'Your password must be limited to a maximum of 40 characters')
+      .optional()
+      .or(z.literal('')),
+    image: z.string().url('Invalid url !').optional().or(z.literal('')),
+  })
+  .superRefine((values, ctx) => {
+    if (!values.username && !values.email && !values.newPassword && !values.image) {
+      ctx.addIssue({
+        message: 'At least one field is required.',
+        code: z.ZodIssueCode.custom,
+        path: ['username'],
+      })
+      ctx.addIssue({
+        message: 'At least one field is required.',
+        code: z.ZodIssueCode.custom,
+        path: ['email'],
+      })
+      ctx.addIssue({
+        message: 'At least one field is required.',
+        code: z.ZodIssueCode.custom,
+        path: ['newPassword'],
+      })
+      ctx.addIssue({
+        message: 'At least one field is required.',
+        code: z.ZodIssueCode.custom,
+        path: ['image'],
+      })
+    }
+  })
 
 function ProfilePage() {
   const { username: defaultUsername, email: defaultEmail, image: defaultImage } = useSelector((state) => state.user)
@@ -19,12 +63,18 @@ function ProfilePage() {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ mode: 'onBlur' })
+  } = useForm({ mode: 'onBlur', resolver: zodResolver(formSchema) })
 
   const onSubmit = (data) => {
-    const { email, username, password, image } = data
+    const objData = {}
+    // eslint-disable-next-line no-restricted-syntax
+    for (const key in data) {
+      if (data[key].length > 0) {
+        objData[key] = data[key]
+      }
+    }
     service
-      .updateCurrentUser(email, password, username, image)
+      .updateCurrentUser(objData)
       .then(({ user }) => {
         dispatch(
           setUser({
@@ -46,18 +96,7 @@ function ProfilePage() {
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="Username">
           Username
-          <input
-            id="Username"
-            {...register('username', {
-              required: 'Username is required',
-              minLength: {
-                value: 1,
-                message: 'Your username must not be empty',
-              },
-            })}
-            placeholder="Username"
-            defaultValue={defaultUsername}
-          />
+          <input id="Username" {...register('username')} placeholder="Username" defaultValue={defaultUsername} />
         </label>
         <div className={classes.notification}>
           {errors?.username && <p className={classes.notification}>{errors?.username?.message || 'Error!'}</p>}
@@ -67,13 +106,7 @@ function ProfilePage() {
           <input
             type="email"
             id="Email"
-            {...register('email', {
-              required: 'Email is required',
-              minLength: {
-                value: 1,
-                message: 'Your email must not be empty',
-              },
-            })}
+            {...register('email')}
             placeholder="Email address"
             defaultValue={defaultEmail}
           />
@@ -83,35 +116,14 @@ function ProfilePage() {
         </div>
         <label htmlFor="NewPassword">
           New Password
-          <input
-            type="password"
-            id="NewPassword"
-            {...register('newPassword', {
-              required: 'Password is required',
-              minLength: {
-                value: 6,
-                message: 'Your password needs to be at least 6 characters',
-              },
-              maxLength: {
-                value: 40,
-                message: 'Your password must be limited to a maximum of 40 characters',
-              },
-            })}
-            placeholder="New Password"
-          />
+          <input type="password" id="NewPassword" {...register('newPassword')} placeholder="New Password" />
         </label>
         <div className={classes.notification}>
           {errors?.newPassword && <p className={classes.notification}>{errors?.newPassword?.message || 'Error!'}</p>}
         </div>
         <label htmlFor="Avatar">
           Avatar image (url)
-          <input
-            type="url"
-            id="Avatar"
-            {...register('image', { required: 'Avatar is required' })}
-            placeholder="Avatar image"
-            defaultValue={defaultImage}
-          />
+          <input type="url" id="Avatar" {...register('image')} placeholder="Avatar image" defaultValue={defaultImage} />
         </label>
         <div className={classes.notification}>
           {errors?.image && <p className={classes.notification}>{errors?.image?.message || 'Error!'}</p>}

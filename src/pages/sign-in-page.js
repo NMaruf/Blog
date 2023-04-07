@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import { setUser } from '../store/slices/userSlice'
 import BlogService from '../services/service'
@@ -12,6 +14,11 @@ import classes from './index.module.scss'
 const service = new BlogService()
 const localStorageService = new ServiceLocalStorage()
 
+const formSchema = z.object({
+  email: z.string().email('Invalid email').min(1, 'Your email must not be empty'),
+  password: z.string().min(1, 'Your password must not be empty'),
+})
+
 function SignInPage() {
   const [userError, setUserError] = useState(null)
   const dispatch = useDispatch()
@@ -20,7 +27,7 @@ function SignInPage() {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ mode: 'onBlur' })
+  } = useForm({ mode: 'onBlur', resolver: zodResolver(formSchema) })
 
   const onSubmit = (data) => {
     const { email, password } = data
@@ -48,36 +55,14 @@ function SignInPage() {
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="Email">
           Email address
-          <input
-            type="email"
-            id="Email"
-            {...register('email', {
-              required: 'Email is required',
-              minLength: {
-                value: 1,
-                message: 'Your email must not be empty',
-              },
-            })}
-            placeholder="Email address"
-          />
+          <input type="email" id="Email" {...register('email')} placeholder="Email address" />
         </label>
         <div className={classes.notification}>
           {errors?.email && <p className={classes.notification}>{errors?.email?.message || 'Error!'}</p>}
         </div>
         <label htmlFor="Password">
           Password
-          <input
-            type="password"
-            id="Password"
-            {...register('password', {
-              required: 'Password is required',
-              minLength: {
-                value: 1,
-                message: 'Your password must not be empty',
-              },
-            })}
-            placeholder="Password"
-          />
+          <input type="password" id="Password" {...register('password')} placeholder="Password" />
         </label>
         <div className={classes.notification}>
           {errors?.password && <p className={classes.notification}>{errors?.password?.message || 'Error!'}</p>}

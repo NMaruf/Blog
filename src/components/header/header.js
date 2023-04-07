@@ -21,6 +21,7 @@ function Header() {
     </Link>
   ) : (
     <img src="..//images/Rectangle 1.svg" className={classes.photo} alt="user img" />
+    // <img src="https://static.productionready.io/images/smiley-cyrus.jpg" className={classes.photo} alt="user img" />
   )
 
   const homeLink = (

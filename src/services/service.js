@@ -88,16 +88,9 @@ export default class BlogService {
     return await res.json()
   }
 
-  async updateCurrentUser(email, password, username, image) {
+  async updateCurrentUser(objUser) {
     const token = this.localStorageService.getToken('tokenKey')
-    const obj = {
-      user: {
-        email,
-        password,
-        username,
-        image,
-      },
-    }
+    const obj = { user: objUser }
     const res = await fetch(`${this._apiBase}/user`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Token ${token}` },
